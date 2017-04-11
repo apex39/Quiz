@@ -127,7 +127,7 @@ public class QuizListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString(QuizDetailFragment.ARG_ITEM_ID, String.valueOf(holder.mItem.getId()));
+                        arguments.putLong(QuizDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
                         QuizDetailFragment fragment = new QuizDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -136,7 +136,7 @@ public class QuizListActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, QuizDetailActivity.class);
-                        intent.putExtra(QuizDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        intent.putExtra(QuizDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
 
                         context.startActivity(intent);
                     }

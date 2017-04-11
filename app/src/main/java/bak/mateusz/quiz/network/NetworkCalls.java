@@ -11,10 +11,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by timo on 11.04.17.
- */
-
 public class NetworkCalls {
     private QuizClient client;
 
