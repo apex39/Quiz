@@ -4,7 +4,9 @@ package bak.mateusz.quiz.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MainPhoto {
+import io.realm.RealmObject;
+
+public class MainPhoto extends RealmObject {
 
     @SerializedName("author")
     @Expose

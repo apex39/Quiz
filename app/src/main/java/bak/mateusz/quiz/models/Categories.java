@@ -4,11 +4,13 @@ package bak.mateusz.quiz.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Categories {
+import io.realm.RealmObject;
+
+public class Categories extends RealmObject {
 
     @SerializedName("uid")
     @Expose
-    public Integer uid;
+    public String uid;
     @SerializedName("secondaryCid")
     @Expose
     public String secondaryCid;

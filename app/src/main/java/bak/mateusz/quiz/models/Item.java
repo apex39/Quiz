@@ -1,12 +1,14 @@
 
 package bak.mateusz.quiz.models;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Item {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
+public class Item extends RealmObject {
     @SerializedName("buttonStart")
     @Expose
     public String buttonStart;
@@ -24,10 +26,11 @@ public class Item {
     public Boolean sponsored;
     @SerializedName("categories")
     @Expose
-    public List<Categories> categories = null;
+    public RealmList<Categories> categories = null;
     @SerializedName("id")
     @Expose
-    public Integer id;
+    @PrimaryKey
+    public String id;
     @SerializedName("title")
     @Expose
     public String title;
@@ -45,6 +48,58 @@ public class Item {
     public Category category;
     @SerializedName("tags")
     @Expose
-    public List<Tag> tags = null;
+    public RealmList<Tag> tags = null;
+
+    public String getButtonStart() {
+        return buttonStart;
+    }
+
+    public String getShareTitle() {
+        return shareTitle;
+    }
+
+    public Integer getQuestions() {
+        return questions;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public Boolean getSponsored() {
+        return sponsored;
+    }
+
+    public RealmList<Categories> getCategories() {
+        return categories;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public MainPhoto getMainPhoto() {
+        return mainPhoto;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public RealmList<Tag> getTags() {
+        return tags;
+    }
 
 }
