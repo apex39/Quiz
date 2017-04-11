@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -75,6 +76,9 @@ public class QuizListActivity extends AppCompatActivity {
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(quizzes));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                getResources().getConfiguration().orientation);
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -115,7 +119,7 @@ public class QuizListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).getCategory().getName());
+            holder.mIdView.setText(mValues.get(position).getCategory().getName().toUpperCase());
             holder.mContentView.setText(mValues.get(position).getContent());
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
