@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 public class Item extends RealmObject {
     @SerializedName("buttonStart")
@@ -29,8 +28,7 @@ public class Item extends RealmObject {
     public RealmList<Categories> categories = null;
     @SerializedName("id")
     @Expose
-    @PrimaryKey
-    public String id;
+    public long id;
     @SerializedName("title")
     @Expose
     public String title;
@@ -74,7 +72,7 @@ public class Item extends RealmObject {
         return categories;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 

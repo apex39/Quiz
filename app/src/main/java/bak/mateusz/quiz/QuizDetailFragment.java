@@ -1,8 +1,8 @@
 package bak.mateusz.quiz;
 
 import android.app.Activity;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +27,7 @@ public class QuizDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    private DummyContent.QuizListItem mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

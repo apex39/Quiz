@@ -10,9 +10,17 @@ public class Category extends RealmObject {
 
     @SerializedName("id")
     @Expose
-    public String id;
+    public long id;
     @SerializedName("name")
     @Expose
     public String name;
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 
 }

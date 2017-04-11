@@ -14,10 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
-import bak.mateusz.quiz.dummy.DummyContent;
-import bak.mateusz.quiz.network.NetworkCalls;
+import bak.mateusz.quiz.models.Item;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * An activity representing a list of Quizzes. This activity
@@ -29,19 +34,23 @@ import bak.mateusz.quiz.network.NetworkCalls;
  */
 public class QuizListActivity extends AppCompatActivity {
 
+    @BindView(R.id.quiz_list)
+    View recyclerView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
+    private List<Item> quizzes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_list);
-        NetworkCalls networkCalls = new NetworkCalls();
-        networkCalls.getQuizzes();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
@@ -54,9 +63,6 @@ public class QuizListActivity extends AppCompatActivity {
             }
         });
 
-        View recyclerView = findViewById(R.id.quiz_list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
 
         if (findViewById(R.id.quiz_detail_container) != null) {
             // The detail container view will be present only in the
@@ -68,15 +74,34 @@ public class QuizListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(quizzes));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onQuizzesReceived(List<Item> realmQuizzes) {
+        this.quizzes = realmQuizzes;
+        setupRecyclerView((RecyclerView) recyclerView);
+    }
+
+    @Override
+    protected void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+
     }
 
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<Item> mValues;
 
-        public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
+        public SimpleItemRecyclerViewAdapter(List<Item> items) {
             mValues = items;
         }
 
@@ -90,15 +115,15 @@ public class QuizListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mIdView.setText(mValues.get(position).getCategory().getName());
+            holder.mContentView.setText(mValues.get(position).getContent());
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString(QuizDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        arguments.putString(QuizDetailFragment.ARG_ITEM_ID, String.valueOf(holder.mItem.getId()));
                         QuizDetailFragment fragment = new QuizDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -122,15 +147,16 @@ public class QuizListActivity extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
-            public final TextView mIdView;
-            public final TextView mContentView;
-            public DummyContent.DummyItem mItem;
+            public Item mItem;
+            @BindView(R.id.id)
+            TextView mIdView;
+            @BindView(R.id.content)
+            TextView mContentView;
 
             public ViewHolder(View view) {
                 super(view);
+                ButterKnife.bind(this, view);
                 mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
-                mContentView = (TextView) view.findViewById(R.id.content);
             }
 
             @Override

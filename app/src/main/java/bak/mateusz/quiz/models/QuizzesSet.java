@@ -4,7 +4,7 @@ package bak.mateusz.quiz.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import io.realm.RealmList;
 
 public class QuizzesSet {
 
@@ -13,13 +13,13 @@ public class QuizzesSet {
     public Integer count;
     @SerializedName("items")
     @Expose
-    public List<Item> items;
+    public RealmList<Item> items;
 
     public Integer getCount() {
         return count;
     }
 
-    public List<Item> getItems() {
+    public RealmList<Item> getItems() {
         return items;
     }
 
