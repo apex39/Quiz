@@ -19,6 +19,22 @@ public class Answer extends RealmObject {
     public String text;
     @SerializedName("isCorrect")
     @Expose
-    public Long isCorrect;
+    public Integer isCorrect;
+
+    public Image getImage() {
+        return image;
+    }
+
+    public Long getOrder() {
+        return order;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public Boolean getIsCorrect() {
+        return isCorrect != null && isCorrect == 1;
+    }
 
 }

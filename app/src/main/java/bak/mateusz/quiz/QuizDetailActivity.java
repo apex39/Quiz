@@ -86,7 +86,7 @@ public class QuizDetailActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onQuizzesReceived(Quiz quiz) {
+    public void onQuizReceived(Quiz quiz) {
         Intent intent = new Intent(this, QuizActivity.class);
         intent.putExtra(QuizDetailFragment.ARG_ITEM_ID,
                 getIntent().getLongExtra(QuizDetailFragment.ARG_ITEM_ID, 0));

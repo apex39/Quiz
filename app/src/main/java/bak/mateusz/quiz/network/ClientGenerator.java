@@ -1,6 +1,7 @@
 package bak.mateusz.quiz.network;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -17,8 +18,12 @@ public class ClientGenerator {
 
 
     static QuizClient createService() {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging).build();
         builder =
                 new Retrofit.Builder()
+                        .client(client)
                         .baseUrl(API_BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create());
 

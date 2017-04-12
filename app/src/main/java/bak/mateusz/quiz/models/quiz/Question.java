@@ -7,14 +7,14 @@ import com.google.gson.annotations.SerializedName;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 
-public class Questions extends RealmObject {
+public class Question extends RealmObject {
 
     @SerializedName("image")
     @Expose
     public Image image;
     @SerializedName("answers")
     @Expose
-    public RealmList<Answer> answers = null;
+    public RealmList<Answer> answers;
     @SerializedName("text")
     @Expose
     public String text;
@@ -26,6 +26,21 @@ public class Questions extends RealmObject {
     public String type;
     @SerializedName("order")
     @Expose
-    public Long order;
+    public Integer order;
 
+    public RealmList<Answer> getAnswers() {
+        return answers;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
 }

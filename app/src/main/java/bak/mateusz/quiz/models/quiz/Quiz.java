@@ -19,9 +19,9 @@ public class Quiz extends RealmObject {
     @SerializedName("rates")
     @Expose
     public RealmList<Rates> rates = null;
-    @SerializedName("questionses")
+    @SerializedName("questions")
     @Expose
-    public RealmList<Questions> questions = null;
+    public RealmList<Question> questions = null;
     @SerializedName("createdAt")
     @Expose
     public String createdAt;
@@ -65,9 +65,9 @@ public class Quiz extends RealmObject {
     @SerializedName("created")
     @Expose
     public Long created;
-    @SerializedName("latestResultses")
+    @SerializedName("latestResults")
     @Expose
-    public RealmList<LatestResults> latestResultses = null;
+    public RealmList<LatestResults> latestResults = null;
     @SerializedName("avgResult")
     @Expose
     public Float avgResult;
@@ -90,4 +90,15 @@ public class Quiz extends RealmObject {
     @Expose
     public SponsoredResults sponsoredResults;
 
+    public RealmList<Rates> getRates() {
+        return rates;
+    }
+
+    public RealmList<Question> getQuestions() {
+        return questions;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }
