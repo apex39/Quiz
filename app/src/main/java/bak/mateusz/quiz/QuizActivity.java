@@ -1,5 +1,6 @@
-package bak.mateusz.quiz.models;
+package bak.mateusz.quiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
@@ -11,7 +12,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import bak.mateusz.quiz.R;
 import bak.mateusz.quiz.models.quiz.Answer;
 import bak.mateusz.quiz.models.quiz.Question;
 import bak.mateusz.quiz.models.quiz.Quiz;
@@ -24,6 +24,7 @@ import static bak.mateusz.quiz.QuizDetailFragment.ARG_ITEM_ID;
 
 public class QuizActivity extends AppCompatActivity {
 
+    public static String QUIZ_SCORE = "quiz_score";
     @BindView(R.id.question_text)
     TextView questionTextView;
     @BindView(R.id.radioGroup)
@@ -92,8 +93,20 @@ public class QuizActivity extends AppCompatActivity {
             correctAnswersNumber++;
         if (currentQuestion < questionsNumber)
             setQuestion(questions.get(currentQuestion + 1));
-        else
-            questionTextView.setText(correctAnswersNumber);
+        else {
+
+            Intent intent = new Intent(this, ResultsActivity.class);
+            Realm realm = Realm.getDefaultInstance();
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    quiz.setCorrectAnswers(correctAnswersNumber);
+                }
+            });
+
+            intent.putExtra(ARG_ITEM_ID, quiz.getId());
+            startActivity(intent);
+        }
 
     }
 

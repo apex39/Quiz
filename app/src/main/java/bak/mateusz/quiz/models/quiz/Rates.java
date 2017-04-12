@@ -18,4 +18,15 @@ public class Rates extends RealmObject {
     @Expose
     public String content;
 
+    public Long getFrom() {
+        return from;
+    }
+
+    public Long getTo() {
+        return to;
+    }
+
+    public String getContent() {
+        return content;
+    }
 }

@@ -46,6 +46,11 @@ public class Quiz extends RealmObject {
     @SerializedName("categories")
     @Expose
     public RealmList<Categories> categories = null;
+
+    public Long getId() {
+        return id;
+    }
+
     @SerializedName("id")
     @Expose
     @PrimaryKey
@@ -89,6 +94,44 @@ public class Quiz extends RealmObject {
     @SerializedName("sponsoredResults")
     @Expose
     public SponsoredResults sponsoredResults;
+
+    public int correctAnswers = 0;
+
+    public Integer getCorrectAnswers() {
+        return correctAnswers;
+    }
+
+    public int getResultPercentage() {
+        Integer correctAnswersNumber = this.correctAnswers;
+        Integer questionsNumber = this.questions.size();
+        return Math.round((float) correctAnswersNumber / (float) questionsNumber * 100);
+    }
+
+    public String getRate() {
+        RealmList<Rates> rates = this.getRates();
+        int resultPercentage = this.getResultPercentage();
+        for (Rates rate : rates) {
+            if (resultPercentage >= rate.getFrom() && resultPercentage <= rate.getTo()) {
+                return rate.getContent();
+            }
+        }
+        return "";
+    }
+
+    public String getRate() {
+        RealmList<Rates> rates = this.getRates();
+        int resultPercentage = this.getResultPercentage();
+        for (Rates rate : rates) {
+            if (resultPercentage >= rate.getFrom() && resultPercentage <= rate.getTo()) {
+                return rate.getContent();
+            }
+        }
+        return "";
+    }
+
+    public void setCorrectAnswers(Integer correctAnswers) {
+        this.correctAnswers = correctAnswers;
+    }
 
     public RealmList<Rates> getRates() {
         return rates;

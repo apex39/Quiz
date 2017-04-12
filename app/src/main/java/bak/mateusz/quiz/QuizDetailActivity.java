@@ -13,7 +13,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import bak.mateusz.quiz.models.QuizActivity;
 import bak.mateusz.quiz.models.quiz.Quiz;
 import bak.mateusz.quiz.network.NetworkCalls;
 

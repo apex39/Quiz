@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context="bak.mateusz.quiz.ResultsActivity">
+
+
+    <com.eralp.circleprogressview.CircleProgressView
+        android:id="@+id/circle_progress_view"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        app:cpv_background_circle_color="#5b253048"
+        app:cpv_background_circle_width="2dp"
+        app:cpv_circle_color="#27375c"
+        app:cpv_circle_width="6dp"
+        app:cpv_text_color="#27375c"
+        app:cpv_text_prefix="%"
+        app:cpv_text_size="40" />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/circle_progress_view"
+        android:layout_centerInParent="true"
+        android:text="asda"
+        android:textAlignment="center"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/againButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/result"
+        android:text="Again"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/backToMenuButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/result"
+        android:text="Back to quizzes"
+        android:visibility="invisible" />
+</RelativeLayout>

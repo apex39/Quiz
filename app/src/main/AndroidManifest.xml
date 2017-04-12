@@ -32,8 +32,11 @@
                 android:value="bak.mateusz.quiz.QuizListActivity" />
         </activity>
         <activity
-            android:name=".models.QuizActivity"
+            android:name=".QuizActivity"
             android:label="@string/title_activity_quiz"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ResultsActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
