@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import bak.mateusz.quiz.models.Item;
+import bak.mateusz.quiz.models.quiz.Quiz;
 import io.realm.Realm;
 
 /**
@@ -25,10 +26,10 @@ public class QuizDetailFragment extends Fragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
+
     private Item mItem;
+    private Quiz quiz;
+    private CollapsingToolbarLayout appBarLayout;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -44,14 +45,22 @@ public class QuizDetailFragment extends Fragment {
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             Realm realm = Realm.getDefaultInstance();
             mItem = realm.where(Item.class).equalTo("id", getArguments().getLong(ARG_ITEM_ID)).findFirst();
-
+            quiz = realm.where(Quiz.class).equalTo("id", getArguments().getLong(ARG_ITEM_ID)).findFirst();
             Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout =
+            appBarLayout =
                     (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
                 appBarLayout.setTitle(mItem.getCategory().getName().toUpperCase());
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (quiz != null)
+            appBarLayout.setTitle("Result:" + Integer.toString(quiz.getResultPercentage()) +
+                    " CurrentQ:" + Integer.toString(quiz.getCurrentQuestion()));
     }
 
     @Override

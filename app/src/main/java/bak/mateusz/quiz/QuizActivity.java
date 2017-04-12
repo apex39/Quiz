@@ -24,7 +24,6 @@ import static bak.mateusz.quiz.QuizDetailFragment.ARG_ITEM_ID;
 
 public class QuizActivity extends AppCompatActivity {
 
-    public static String QUIZ_SCORE = "quiz_score";
     @BindView(R.id.question_text)
     TextView questionTextView;
     @BindView(R.id.radioGroup)
@@ -37,7 +36,7 @@ public class QuizActivity extends AppCompatActivity {
     private Integer questionsNumber;
     private Integer correctAnswersNumber = 0;
     private RealmList<Question> questions;
-    private Integer currentQuestion;
+    private int currentQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,10 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
         ButterKnife.bind(this);
         loadQuiz();
-        setQuestion(questions.first());
+        if (quiz.getCurrentQuestion() > 0) {
+            setQuestion(questions.get(quiz.getCurrentQuestion()));
+        } else
+            setQuestion(questions.first());
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,23 +91,34 @@ public class QuizActivity extends AppCompatActivity {
 
     private void nextQuestion() {
         RadioButton checkedRadioButton = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
+        Realm realm = Realm.getDefaultInstance();
         if ((Boolean) checkedRadioButton.getTag(R.id.correct_answer))
             correctAnswersNumber++;
-        if (currentQuestion < questionsNumber)
-            setQuestion(questions.get(currentQuestion + 1));
-        else {
-
-            Intent intent = new Intent(this, ResultsActivity.class);
-            Realm realm = Realm.getDefaultInstance();
+        if (currentQuestion < questionsNumber) {
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
                     quiz.setCorrectAnswers(correctAnswersNumber);
+                    quiz.setCurrentQuestion(currentQuestion);
+                }
+            });
+            setQuestion(questions.get(currentQuestion));
+        }
+        else {
+
+            Intent intent = new Intent(this, ResultsActivity.class);
+            realm = Realm.getDefaultInstance();
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    quiz.setCorrectAnswers(correctAnswersNumber);
+                    quiz.setCurrentQuestion(0);
                 }
             });
 
             intent.putExtra(ARG_ITEM_ID, quiz.getId());
             startActivity(intent);
+            finish();
         }
 
     }
