@@ -3,12 +3,19 @@ package bak.mateusz.quiz;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import bak.mateusz.quiz.models.QuizActivity;
+import bak.mateusz.quiz.models.quiz.Quiz;
+import bak.mateusz.quiz.network.NetworkCalls;
 
 /**
  * An activity representing a single Quiz detail screen. This
@@ -29,8 +36,7 @@ public class QuizDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                NetworkCalls.getQuiz(getIntent().getLongExtra(QuizDetailFragment.ARG_ITEM_ID, 0));
             }
         });
 
@@ -77,5 +83,27 @@ public class QuizDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onQuizzesReceived(Quiz quiz) {
+        Intent intent = new Intent(this, QuizActivity.class);
+        intent.putExtra(QuizDetailFragment.ARG_ITEM_ID,
+                getIntent().getLongExtra(QuizDetailFragment.ARG_ITEM_ID, 0));
+
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+
     }
 }

@@ -14,7 +14,6 @@ public class QuizApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Realm.init(this);
-        NetworkCalls networkCalls = new NetworkCalls();
-        networkCalls.getQuizzes();
+        NetworkCalls.getQuizzes();
     }
 }

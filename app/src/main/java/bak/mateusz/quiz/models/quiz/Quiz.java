@@ -1,0 +1,93 @@
+
+package bak.mateusz.quiz.models.quiz;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import bak.mateusz.quiz.models.Categories;
+import bak.mateusz.quiz.models.Category;
+import bak.mateusz.quiz.models.MainPhoto;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Quiz extends RealmObject {
+
+    @SerializedName("celebrity")
+    @Expose
+    public Celebrity celebrity;
+    @SerializedName("rates")
+    @Expose
+    public RealmList<Rates> rates = null;
+    @SerializedName("questionses")
+    @Expose
+    public RealmList<Questions> questions = null;
+    @SerializedName("createdAt")
+    @Expose
+    public String createdAt;
+    @SerializedName("sponsored")
+    @Expose
+    public Boolean sponsored;
+    @SerializedName("title")
+    @Expose
+    public String title;
+    @SerializedName("type")
+    @Expose
+    public String type;
+    @SerializedName("content")
+    @Expose
+    public String content;
+    @SerializedName("buttonStart")
+    @Expose
+    public String buttonStart;
+    @SerializedName("shareTitle")
+    @Expose
+    public String shareTitle;
+    @SerializedName("categories")
+    @Expose
+    public RealmList<Categories> categories = null;
+    @SerializedName("id")
+    @Expose
+    @PrimaryKey
+    public Long id;
+    @SerializedName("scripts")
+    @Expose
+    public String scripts;
+    @SerializedName("mainPhoto")
+    @Expose
+    public MainPhoto mainPhoto;
+    @SerializedName("category")
+    @Expose
+    public Category category;
+    @SerializedName("isBattle")
+    @Expose
+    public Boolean isBattle;
+    @SerializedName("created")
+    @Expose
+    public Long created;
+    @SerializedName("latestResultses")
+    @Expose
+    public RealmList<LatestResults> latestResultses = null;
+    @SerializedName("avgResult")
+    @Expose
+    public Float avgResult;
+    @SerializedName("resultCount")
+    @Expose
+    public Long resultCount;
+    @SerializedName("cityAvg")
+    @Expose
+    public Float cityAvg;
+    @SerializedName("cityTime")
+    @Expose
+    public Float cityTime;
+    @SerializedName("cityCount")
+    @Expose
+    public Integer cityCount;
+    @SerializedName("userBattleDone")
+    @Expose
+    public Boolean userBattleDone;
+    @SerializedName("sponsoredResults")
+    @Expose
+    public SponsoredResults sponsoredResults;
+
+}

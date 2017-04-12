@@ -10,7 +10,7 @@ public class Categories extends RealmObject {
 
     @SerializedName("uid")
     @Expose
-    public String uid;
+    public Long uid;
     @SerializedName("secondaryCid")
     @Expose
     public String secondaryCid;

@@ -31,7 +31,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="bak.mateusz.quiz.QuizListActivity" />
         </activity>
-
+        <activity
+            android:name=".models.QuizActivity"
+            android:label="@string/title_activity_quiz"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

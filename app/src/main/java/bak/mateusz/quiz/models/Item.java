@@ -14,7 +14,7 @@ public class Item extends RealmObject {
     @SerializedName("shareTitle")
     @Expose
     public String shareTitle;
-    @SerializedName("questions")
+    @SerializedName("questionses")
     @Expose
     public Integer questions;
     @SerializedName("createdAt")
