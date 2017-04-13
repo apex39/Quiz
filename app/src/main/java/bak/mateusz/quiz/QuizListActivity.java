@@ -38,10 +38,7 @@ public class QuizListActivity extends AppCompatActivity {
     View recyclerView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
+
     private boolean mTwoPane;
     private List<Item> quizzes;
 
@@ -53,7 +50,6 @@ public class QuizListActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
-
 
         if (findViewById(R.id.quiz_detail_container) != null) {
             mTwoPane = true;
@@ -115,16 +111,18 @@ public class QuizListActivity extends AppCompatActivity {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
                         arguments.putLong(QuizDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
+                        arguments.putString(QuizDetailFragment.ARG_ITEM_PIC_URL, holder.mItem.getMainPhoto().url);
                         QuizDetailFragment fragment = new QuizDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.quiz_detail_container, fragment)
                                 .commit();
+                        toolbar.setTitle(holder.mItem.getCategory().getName().toUpperCase() + ": " + holder.mItem.getTitle());
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, QuizDetailActivity.class);
                         intent.putExtra(QuizDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
-
+                        intent.putExtra(QuizDetailFragment.ARG_ITEM_PIC_URL, holder.mItem.getMainPhoto().url);
                         context.startActivity(intent);
                     }
                 }

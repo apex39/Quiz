@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -15,6 +18,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import bak.mateusz.quiz.models.quiz.Quiz;
 import bak.mateusz.quiz.network.NetworkCalls;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * An activity representing a single Quiz detail screen. This
@@ -24,12 +29,19 @@ import bak.mateusz.quiz.network.NetworkCalls;
  */
 public class QuizDetailActivity extends AppCompatActivity {
 
+    @BindView(R.id.quiz_image)
+    ImageView quizImage;
+    String picUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
+        picUrl = getIntent().getStringExtra(QuizDetailFragment.ARG_ITEM_PIC_URL);
+        Glide.with(this).load(picUrl).centerCrop().crossFade()
+                .into(quizImage);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

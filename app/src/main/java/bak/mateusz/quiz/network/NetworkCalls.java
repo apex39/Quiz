@@ -19,7 +19,7 @@ public class NetworkCalls {
 
     public static void getQuizzes() {
         RealmResults<Item> realmQuizzes = realm.where(Item.class).findAll();
-        if (realmQuizzes.isValid()) {
+        if (realmQuizzes.size() > 0) {
             EventBus.getDefault().post(realmQuizzes);
         } else {
         Call<QuizzesSet> quizzesSetCall =

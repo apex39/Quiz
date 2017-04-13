@@ -36,7 +36,11 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="?android:attr/textColorPrimary"
                 tools:ignore="Overdraw,UnusedAttribute,PrivateResource" />
+
+
         </android.support.design.widget.CollapsingToolbarLayout>
+
+
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_quiz" />

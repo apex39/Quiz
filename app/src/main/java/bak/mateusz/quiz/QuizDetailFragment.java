@@ -28,6 +28,7 @@ public class QuizDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
+    public static final String ARG_ITEM_PIC_URL = "pic_url";
     @BindView(R.id.message)
     TextView message;
     @BindView(R.id.result)
@@ -63,6 +64,8 @@ public class QuizDetailFragment extends Fragment {
         }
         if (appBarLayout != null) {
             appBarLayout.setTitle(mItem.getCategory().getName().toUpperCase());
+        } else {
+            message.setText(mItem.getContent());
         }
         if (quiz != null) {
             if (quiz.getCurrentQuestion() == 0) {
@@ -84,6 +87,7 @@ public class QuizDetailFragment extends Fragment {
         bind = ButterKnife.bind(this, rootView);
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.quiz_detail)).setText(mItem.getContent());
+
         }
 
         return rootView;
