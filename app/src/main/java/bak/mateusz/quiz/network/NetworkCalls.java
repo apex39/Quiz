@@ -45,7 +45,7 @@ public class NetworkCalls {
 
     public static void getQuiz(long quizId) {
         Quiz quiz = realm.where(Quiz.class).equalTo("id", quizId).findFirst();
-        if (quiz.isValid()) {
+        if (quiz != null) {
             EventBus.getDefault().post(quiz);
         } else {
             Call<Quiz> quizCall =
