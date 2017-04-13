@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import bak.mateusz.quiz.models.Item;
 import bak.mateusz.quiz.models.quiz.Quiz;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.realm.Realm;
 
 /**
@@ -25,16 +28,15 @@ public class QuizDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-
-
+    @BindView(R.id.message)
+    TextView message;
+    @BindView(R.id.result)
+    TextView result;
     private Item mItem;
     private Quiz quiz;
+    private Unbinder bind;
     private CollapsingToolbarLayout appBarLayout;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public QuizDetailFragment() {
     }
 
@@ -49,18 +51,27 @@ public class QuizDetailFragment extends Fragment {
             Activity activity = this.getActivity();
             appBarLayout =
                     (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.getCategory().getName().toUpperCase());
-            }
+
         }
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
-        if (quiz != null)
-            appBarLayout.setTitle("Result:" + Integer.toString(quiz.getResultPercentage()) +
-                    " CurrentQ:" + Integer.toString(quiz.getCurrentQuestion()));
+        if (appBarLayout != null) {
+            appBarLayout.setTitle(mItem.getCategory().getName().toUpperCase());
+        }
+        if (quiz != null) {
+            if (quiz.getCurrentQuestion() == 0) {
+                message.setText("Twój wynik: ");
+                result.setText(Integer.toString(quiz.getResultPercentage()) + "%");
+            } else if (quiz.getCurrentQuestion() > 0) {
+                message.setText("Quiz rozwiązany w : ");
+                Integer percentage = Math.round((float) quiz.getCurrentQuestion() / (float) quiz.getQuestions().size() * 100);
+                result.setText(Integer.toString(percentage) + "%");
+            }
+        }
     }
 
     @Override
@@ -68,10 +79,17 @@ public class QuizDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.quiz_detail, container, false);
 
+        bind = ButterKnife.bind(this, rootView);
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.quiz_detail)).setText(mItem.getContent());
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bind.unbind();
     }
 }

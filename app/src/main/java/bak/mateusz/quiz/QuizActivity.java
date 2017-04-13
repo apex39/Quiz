@@ -83,6 +83,9 @@ public class QuizActivity extends AppCompatActivity {
             RadioButton radioButton = new RadioButton(this);
             radioButton.setText(answers.get(i).getText());
             radioButton.setPadding(10, 10, 0, 0);
+            radioButton.setLayoutParams(
+                    new RadioGroup.LayoutParams(RadioGroup.LayoutParams.MATCH_PARENT,
+                            RadioGroup.LayoutParams.WRAP_CONTENT, 1f));
             radioButton.setTag(R.id.correct_answer, answers.get(i).getIsCorrect());
 
             radioGroup.addView(radioButton);
