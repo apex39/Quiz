@@ -1,5 +1,6 @@
 package bak.mateusz.quiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.transition.TransitionManager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.eralp.circleprogressview.ProgressAnimationListener;
 import bak.mateusz.quiz.models.quiz.Quiz;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.realm.Realm;
 
 import static bak.mateusz.quiz.QuizDetailFragment.ARG_ITEM_ID;
@@ -59,5 +61,19 @@ public class ResultsActivity extends AppCompatActivity {
                 backToMenuButton.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    @OnClick(R.id.againButton)
+    public void startQuizAgain(View view) {
+        Intent intent = new Intent(this, QuizActivity.class);
+        intent.putExtra(QuizDetailFragment.ARG_ITEM_ID,
+                quiz.getId());
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.backToMenuButton)
+    public void openQuizListActivity(View view) {
+        Intent intent = new Intent(this, QuizListActivity.class);
+        startActivity(intent);
     }
 }
