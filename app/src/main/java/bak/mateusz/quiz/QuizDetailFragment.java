@@ -45,9 +45,6 @@ public class QuizDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            Realm realm = Realm.getDefaultInstance();
-            mItem = realm.where(Item.class).equalTo("id", getArguments().getLong(ARG_ITEM_ID)).findFirst();
-            quiz = realm.where(Quiz.class).equalTo("id", getArguments().getLong(ARG_ITEM_ID)).findFirst();
             Activity activity = this.getActivity();
             appBarLayout =
                     (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
@@ -59,6 +56,11 @@ public class QuizDetailFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (getArguments().containsKey(ARG_ITEM_ID)) {
+            Realm realm = Realm.getDefaultInstance();
+            mItem = realm.where(Item.class).equalTo("id", getArguments().getLong(ARG_ITEM_ID)).findFirst();
+            quiz = realm.where(Quiz.class).equalTo("id", getArguments().getLong(ARG_ITEM_ID)).findFirst();
+        }
         if (appBarLayout != null) {
             appBarLayout.setTitle(mItem.getCategory().getName().toUpperCase());
         }
