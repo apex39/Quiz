@@ -8,6 +8,7 @@ import bak.mateusz.quiz.models.Item;
 import bak.mateusz.quiz.models.QuizzesSet;
 import bak.mateusz.quiz.models.quiz.Quiz;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,6 +18,10 @@ public class NetworkCalls {
     private static Realm realm = Realm.getDefaultInstance();
 
     public static void getQuizzes() {
+        RealmResults<Item> realmQuizzes = realm.where(Item.class).findAll();
+        if (realmQuizzes.isValid()) {
+            EventBus.getDefault().post(realmQuizzes);
+        } else {
         Call<QuizzesSet> quizzesSetCall =
                 client.getQuizzes();
         Callback<QuizzesSet> quizzesSetCallback = new Callback<QuizzesSet>() {
@@ -36,12 +41,12 @@ public class NetworkCalls {
         };
         quizzesSetCall.enqueue(quizzesSetCallback);
     }
+    }
 
     public static void getQuiz(long quizId) {
         Quiz quiz = realm.where(Quiz.class).equalTo("id", quizId).findFirst();
         if (quiz.isValid()) {
             EventBus.getDefault().post(quiz);
-
         } else {
             Call<Quiz> quizCall =
                     client.getQuiz(quizId);

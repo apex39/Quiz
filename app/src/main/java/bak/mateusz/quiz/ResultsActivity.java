@@ -69,11 +69,14 @@ public class ResultsActivity extends AppCompatActivity {
         intent.putExtra(QuizDetailFragment.ARG_ITEM_ID,
                 quiz.getId());
         startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.backToMenuButton)
     public void openQuizListActivity(View view) {
         Intent intent = new Intent(this, QuizListActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
     }
 }

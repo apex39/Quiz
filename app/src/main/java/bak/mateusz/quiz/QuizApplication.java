@@ -2,7 +2,6 @@ package bak.mateusz.quiz;
 
 import android.app.Application;
 
-import bak.mateusz.quiz.network.NetworkCalls;
 import io.realm.Realm;
 
 /**
@@ -14,6 +13,5 @@ public class QuizApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Realm.init(this);
-        NetworkCalls.getQuizzes();
     }
 }

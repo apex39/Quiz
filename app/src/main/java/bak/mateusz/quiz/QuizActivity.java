@@ -46,6 +46,7 @@ public class QuizActivity extends AppCompatActivity {
         loadQuiz();
         if (quiz.getCurrentQuestion() > 0) {
             setQuestion(questions.get(quiz.getCurrentQuestion()));
+            correctAnswersNumber = quiz.getCorrectAnswers();
         } else
             setQuestion(questions.first());
         fab.setOnClickListener(new View.OnClickListener() {

@@ -20,6 +20,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
 import bak.mateusz.quiz.models.Item;
+import bak.mateusz.quiz.network.NetworkCalls;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -82,7 +83,8 @@ public class QuizListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-//        if(this.quizzes != null) setupRecyclerView((RecyclerView) recyclerView);
+        NetworkCalls.getQuizzes();
+
     }
 
     public class SimpleItemRecyclerViewAdapter
