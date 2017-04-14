@@ -24,14 +24,6 @@ import bak.mateusz.quiz.network.NetworkCalls;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * An activity representing a list of Quizzes. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link QuizDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- */
 public class QuizListActivity extends AppCompatActivity {
 
     @BindView(R.id.quiz_list)
@@ -56,12 +48,6 @@ public class QuizListActivity extends AppCompatActivity {
         }
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(quizzes));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                getResources().getConfiguration().orientation);
-        recyclerView.addItemDecoration(dividerItemDecoration);
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onQuizzesReceived(List<Item> realmQuizzes) {
@@ -81,6 +67,13 @@ public class QuizListActivity extends AppCompatActivity {
         EventBus.getDefault().register(this);
         NetworkCalls.getQuizzes();
 
+    }
+
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(quizzes));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                getResources().getConfiguration().orientation);
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
     public class SimpleItemRecyclerViewAdapter

@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,12 +50,13 @@ public class QuizDetailFragment extends Fragment {
     @Nullable
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    @BindView(R.id.quiz_detail)
+    TextView quizDetail;
     private Item mItem;
     private Quiz quiz;
     private Unbinder bind;
     private CollapsingToolbarLayout appBarLayout;
     private boolean mTwoPane = false;
-    private FrameLayout fragmentContainer;
 
     public QuizDetailFragment() {
     }
@@ -69,7 +69,6 @@ public class QuizDetailFragment extends Fragment {
             Activity activity = this.getActivity();
             appBarLayout =
                     (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            fragmentContainer = (FrameLayout) activity.findViewById(R.id.quiz_detail_container);
         }
         if (getActivity().findViewById(R.id.twoPaneLayout) != null) {
             mTwoPane = true;
@@ -109,6 +108,7 @@ public class QuizDetailFragment extends Fragment {
                     .into(quizImage);
         }
         if (quiz != null) {
+            quizDetail.setText(quiz.getTitle());
             if (quiz.getCurrentQuestion() == 0) {
                 message.setText("Twój wynik: ");
                 result.setText(Integer.toString(quiz.getResultPercentage()) + "%");
@@ -124,13 +124,10 @@ public class QuizDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.quiz_detail, container, false);
-
         bind = ButterKnife.bind(this, rootView);
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.quiz_detail)).setText(mItem.getContent());
-
         }
-
         return rootView;
     }
 

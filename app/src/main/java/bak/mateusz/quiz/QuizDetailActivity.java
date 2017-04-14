@@ -3,7 +3,6 @@ package bak.mateusz.quiz;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -20,12 +19,6 @@ import bak.mateusz.quiz.network.NetworkCalls;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * An activity representing a single Quiz detail screen. This
- * activity is only used narrow width devices. On tablet-size devices,
- * item details are presented side-by-side with a list of items
- * in a {@link QuizListActivity}.
- */
 public class QuizDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.quiz_image)
@@ -49,12 +42,6 @@ public class QuizDetailActivity extends AppCompatActivity {
                 NetworkCalls.getQuiz(getIntent().getLongExtra(QuizDetailFragment.ARG_ITEM_ID, 0));
             }
         });
-
-        // Show the Up button in the action bar.
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
 
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
