@@ -1,8 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="bak.mateusz.quiz.QuizDetailFragment">
+    android:fitsSystemWindows="true"
+    tools:context="bak.mateusz.quiz.QuizDetailActivity">
+
+    <ImageView
+        android:id="@+id/quiz_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -10,6 +17,7 @@
         style="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/quiz_image"
         android:padding="16dp" />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,7 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/quiz_detail"
-        android:padding="16dp" />
+        android:padding="8dp"
+        android:textSize="30sp" />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -30,6 +39,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/quiz_detail"
         android:layout_toRightOf="@id/message"
-        android:padding="16dp"
-        android:textColor="@color/colorPrimary" />
+        android:padding="8dp"
+
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="35dp"
+        app:srcCompat="@android:drawable/ic_media_play" />
+
 </RelativeLayout>
