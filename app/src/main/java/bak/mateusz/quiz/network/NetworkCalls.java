@@ -2,6 +2,7 @@ package bak.mateusz.quiz.network;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bak.mateusz.quiz.models.Item;
@@ -20,7 +21,8 @@ public class NetworkCalls {
     public static void getQuizzes() {
         RealmResults<Item> realmQuizzes = realm.where(Item.class).findAll();
         if (realmQuizzes.size() > 0) {
-            EventBus.getDefault().post(realmQuizzes);
+            ArrayList<String> categoryNames = getCategoryNames(realmQuizzes);
+            EventBus.getDefault().post(categoryNames);
         } else {
         Call<QuizzesSet> quizzesSetCall =
                 client.getQuizzes();
@@ -31,7 +33,8 @@ public class NetworkCalls {
                 realm.beginTransaction();
                 List<Item> realmQuizzes = realm.copyToRealmOrUpdate(quizzesSet.getItems());
                 realm.commitTransaction();
-                EventBus.getDefault().post(realmQuizzes);
+                ArrayList<String> categoryNames = getCategoryNames(realmQuizzes);
+                EventBus.getDefault().post(categoryNames);
             }
 
             @Override
@@ -70,4 +73,12 @@ public class NetworkCalls {
 
     }
 
+    private static ArrayList<String> getCategoryNames(List<Item> realmQuizzes) {
+        ArrayList<String> categories = new ArrayList<>();
+        for (Item quiz : realmQuizzes) {
+            if (!categories.contains(quiz.getCategory().getName().toUpperCase()))
+                categories.add(quiz.getCategory().getName().toUpperCase());
+        }
+        return categories;
+    }
 }

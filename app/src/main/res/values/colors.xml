@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="pastel1">#fbc02d</color>
+    <color name="pastel2">#40c4ff</color>
+    <color name="pastel3">#f50057</color>
+    <array name="pastels">
+        <item>@color/pastel1</item>
+        <item>@color/pastel2</item>
+        <item>@color/pastel3</item>
+    </array>
 </resources>
