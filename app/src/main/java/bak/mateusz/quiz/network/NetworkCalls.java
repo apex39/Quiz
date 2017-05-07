@@ -3,6 +3,7 @@ package bak.mateusz.quiz.network;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import bak.mateusz.quiz.models.Item;
@@ -79,6 +80,7 @@ public class NetworkCalls {
             if (!categories.contains(quiz.getCategory().getName().toUpperCase()))
                 categories.add(quiz.getCategory().getName().toUpperCase());
         }
+        Collections.sort(categories);
         return categories;
     }
 }
